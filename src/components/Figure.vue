@@ -23,5 +23,11 @@
 export default {};
 </script>
 
-<style>
+<style scoped>
+.figure-container {
+  fill: transparent;
+  stroke: #fff;
+  stroke-width: 4px;
+  stroke-linecap: round;
+}
 </style>

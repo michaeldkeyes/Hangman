@@ -4,7 +4,7 @@
     <div class="game-container">
       <Figure />
       <WrongLetters />
-      <Word />
+      <Word :selectedWord="selectedWord" :correctLetters="correctLetters" />
     </div>
   </div>
 </template>
