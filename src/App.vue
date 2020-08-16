@@ -2,7 +2,7 @@
   <div id="app">
     <Header />
     <div class="game-container">
-      <Figure />
+      <Figure :wrongLetters="wrongLetters" />
       <WrongLetters :wrongLetters="wrongLetters" />
       <Word :selectedWord="selectedWord" :correctLetters="correctLetters" />
     </div>
