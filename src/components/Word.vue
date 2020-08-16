@@ -1,7 +1,8 @@
 <template>
-  <div>
-    <div class="word" v-for="(letter, index) in letters" :key="index">
+  <div class="word">
+    <div v-for="(letter, index) in letters" :key="index">
       <span class="letter" v-if="correctLetters.includes(letter)">{{letter}}</span>
+      <span class="letter" v-else></span>
     </div>
   </div>
 </template>

@@ -3,7 +3,7 @@
     <Header />
     <div class="game-container">
       <Figure />
-      <WrongLetters />
+      <WrongLetters :wrongLetters="wrongLetters" />
       <Word :selectedWord="selectedWord" :correctLetters="correctLetters" />
     </div>
   </div>
@@ -36,6 +36,27 @@ export default {
       return this.words[Math.floor(Math.random() * this.words.length)];
     },
   },
+  methods: {
+    handleKeydown: function (event) {
+      const { key, keyCode } = event;
+      if (this.playable && keyCode >= 65 && keyCode <= 90) {
+        const letter = key.toLowerCase();
+
+        if (this.selectedWord.includes(letter)) {
+          if (!this.correctLetters.includes(letter)) {
+            this.correctLetters.push(letter);
+          }
+        } else {
+          if (!this.wrongLetters.includes(letter)) {
+            this.wrongLetters.push(letter);
+          }
+        }
+      }
+    },
+  },
+  created: function () {
+    window.addEventListener("keydown", this.handleKeydown);
+  },
 };
 </script>
 
@@ -56,7 +77,15 @@ body {
   overflow: hidden;
 }
 
+#app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .game-container {
+  display: flex;
+  justify-content: space-around;
   padding: 20px 30px;
   position: relative;
   margin: auto;

@@ -9,5 +9,9 @@
 export default {};
 </script>
 
-<style>
+<style scoped>
+h1 {
+  margin: 20px 0 0;
+  text-align: center;
+}
 </style>

@@ -30,4 +30,8 @@ export default {};
   stroke-width: 4px;
   stroke-linecap: round;
 }
+
+.figure-part {
+  display: none;
+}
 </style>

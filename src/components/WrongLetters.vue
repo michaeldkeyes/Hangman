@@ -1,12 +1,25 @@
 <template>
   <div class="wrong-letters-container">
-    <div id="wrong-letters"></div>
+    <p>Wrong</p>
+    <div class="d-flex" v-if="wrongLetters.length > 0">
+      <span v-for="(letter, index) in wrongLetters" :key="index">
+        <pre>{{letter}}, </pre>
+      </span>
+    </div>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  props: {
+    wrongLetters: Array,
+  },
+};
 </script>
 
-<style>
+<style scoped>
+.d-flex {
+  display: flex;
+  flex-wrap: wrap;
+}
 </style>
