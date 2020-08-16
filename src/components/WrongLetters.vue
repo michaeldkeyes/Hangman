@@ -18,8 +18,20 @@ export default {
 </script>
 
 <style scoped>
-.d-flex {
+.wrong-letters-container {
+  position: absolute;
+  top: 20px;
+  right: 20px;
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
+  text-align: right;
+}
+
+.wrong-letters-container p {
+  margin: 0 0 5px;
+}
+
+.wrong-letters-container span {
+  font-size: 24px;
 }
 </style>

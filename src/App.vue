@@ -6,6 +6,8 @@
       <WrongLetters :wrongLetters="wrongLetters" />
       <Word :selectedWord="selectedWord" :correctLetters="correctLetters" />
     </div>
+    <Popup />
+    <Notification v-if="showNotification" />
   </div>
 </template>
 
@@ -14,6 +16,8 @@ import Header from "./components/Header";
 import Figure from "./components/Figure";
 import WrongLetters from "./components/WrongLetters";
 import Word from "./components/Word";
+import Notification from "./components/Notification";
+import Popup from "./components/Popup";
 
 export default {
   name: "App",
@@ -22,6 +26,8 @@ export default {
     Figure,
     WrongLetters,
     Word,
+    Notification,
+    Popup,
   },
   data: function () {
     return {
@@ -29,6 +35,7 @@ export default {
       playable: true,
       correctLetters: [],
       wrongLetters: [],
+      showNotification: false,
     };
   },
   computed: {
@@ -45,13 +52,23 @@ export default {
         if (this.selectedWord.includes(letter)) {
           if (!this.correctLetters.includes(letter)) {
             this.correctLetters.push(letter);
+          } else {
+            this.show();
           }
         } else {
           if (!this.wrongLetters.includes(letter)) {
             this.wrongLetters.push(letter);
+          } else {
+            this.show();
           }
         }
       }
+    },
+    show: function () {
+      this.showNotification = true;
+      setTimeout(() => {
+        this.showNotification = false;
+      }, 2000);
     },
   },
   created: function () {
