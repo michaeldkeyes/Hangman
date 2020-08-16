@@ -34,4 +34,10 @@ export default {
 .wrong-letters-container span {
   font-size: 24px;
 }
+
+@media screen and (max-width: 400px) {
+  .wrong-letters-container span {
+    font-size: 20px;
+  }
+}
 </style>

@@ -6,7 +6,12 @@
       <WrongLetters :wrongLetters="wrongLetters" />
       <Word :selectedWord="selectedWord" :correctLetters="correctLetters" />
     </div>
-    <Popup />
+    <Popup
+      v-if="status === 'win' || status === 'lose'"
+      :finalMessage="finalMessage"
+      :selectedWord="selectedWord"
+      @playAgain="playAgain"
+    />
     <Notification v-if="showNotification" />
   </div>
 </template>
@@ -31,11 +36,40 @@ export default {
   },
   data: function () {
     return {
-      words: ["application", "programming", "interface", "wizard"],
+      words: [
+        "accurate",
+        "bed",
+        "camera",
+        "deadly",
+        "express",
+        "formal",
+        "gold",
+        "hang",
+        "import",
+        "jump",
+        "king",
+        "ladder",
+        "murder",
+        "noble",
+        "oak",
+        "pluck",
+        "quit",
+        "ruin",
+        "supply",
+        "thoughtful",
+        "use",
+        "veil",
+        "write",
+        "xylophone",
+        "youth",
+        "zebra",
+      ],
       playable: true,
       correctLetters: [],
       wrongLetters: [],
       showNotification: false,
+      finalMessage: "",
+      status: "",
     };
   },
   computed: {
@@ -52,12 +86,22 @@ export default {
         if (this.selectedWord.includes(letter)) {
           if (!this.correctLetters.includes(letter)) {
             this.correctLetters.push(letter);
+            this.checkWin(
+              this.correctLetters,
+              this.wrongLetters,
+              this.selectedWord
+            );
           } else {
             this.show();
           }
         } else {
           if (!this.wrongLetters.includes(letter)) {
             this.wrongLetters.push(letter);
+            this.checkWin(
+              this.correctLetters,
+              this.wrongLetters,
+              this.selectedWord
+            );
           } else {
             this.show();
           }
@@ -69,6 +113,38 @@ export default {
       setTimeout(() => {
         this.showNotification = false;
       }, 2000);
+    },
+    checkWin: function (correct, wrong, word) {
+      this.status = "win";
+      this.finalMessage = "Congratulations! You won!";
+
+      word.split("").forEach((letter) => {
+        if (!correct.includes(letter)) {
+          this.status = "";
+          return;
+        }
+      });
+
+      if (wrong.length === 6) {
+        this.finalMessage = "Unfortunately you lost.";
+        this.status = "lose";
+        this.playable = false;
+        return;
+      }
+
+      if (this.status === "win") {
+        this.playable = false;
+      }
+    },
+    playAgain: function () {
+      this.playable = true;
+      this.correctLetters = [];
+      this.wrongLetters = [];
+      this.status = "";
+
+      // I didn't want to change selectedWord from a computed property so I made this janky workaround.
+      let word = this.words.pop();
+      this.words.push(word);
     },
   },
   created: function () {
@@ -107,6 +183,18 @@ body {
   position: relative;
   margin: auto;
   height: 350px;
-  width: 450px;
+  width: 550px;
+}
+
+@media screen and (max-width: 750px) {
+  .game-container {
+    width: 450px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .game-container {
+    width: 350px;
+  }
 }
 </style>
